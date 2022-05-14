@@ -1,18 +1,16 @@
-package model
+package test.model
+
+import java.util.*
 
 data class GraphModel(
-    val id: Int,
-    val nodes: MutableList<NodeModel>
+    val nodes: SortedSet<Int>,
+    val connections: Map<Int, List<Int>>
 ) {
-
     val size: Int
         get() = nodes.size
 
-    data class NodeModel(
-        val id: Int,
-        val connections: MutableMap<Int, Int>
-    ) {
-        val degree: Int
-            get() = connections.size
-    }
+    fun hasConnection(a: Int, b: Int): Boolean =
+        connections[a]?.contains(b) == true || connections[b]?.contains(a) == true
+
+    fun hasNotConnection(a: Int, b: Int): Boolean = !hasConnection(a, b)
 }

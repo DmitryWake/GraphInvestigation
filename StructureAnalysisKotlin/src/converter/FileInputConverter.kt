@@ -1,137 +1,111 @@
 package converter
 
-import model.GraphModel
+import test.converter.FileType
+import test.model.GraphModel
 import java.io.File
-import java.util.*
 
 class FileInputConverter {
     private val astroGraphFile: File by lazy {
-        File(CA_ASTRO_PH_PATH)
+        File(CA_ASTRO_PH_INPUT_PATH)
     }
     private val vkGraphFile: File by lazy {
-        File(VK_PATH)
+        File(VK_INPUT_PATH)
     }
     private val webGoogleFile: File by lazy {
-        File(WEB_GOOGLE_PATH)
+        File(WEB_GOOGLE_INPUT_PATH)
     }
 
-    fun parseGraphFromFile(fileType: FileType): MutableMap<Int, MutableList<Int>> {
+    fun parseGraphFromFile(fileType: FileType): GraphModel {
         return when (fileType) {
             FileType.ASTRO_GRAPH_FILE -> parseGraphFromAstroFile()
-            FileType.VK_GRAPH_FILE -> TODO()
+            FileType.VK_GRAPH_FILE -> parseGraphFromVkFile()
             FileType.WEB_GOOGLE_FILE -> parseGraphFromGoogleFile()
+            FileType.TEST_FILE -> parseGraphFromTestFile()
         }
     }
 
-    private fun parseGraphFromAstroFile(): MutableMap<Int, MutableList<Int>> {
-        val resultMap = mutableMapOf<Int, MutableList<Int>>()
+    private fun parseGraphFromTestFile(): GraphModel {
+        val connections = mutableMapOf<Int, MutableList<Int>>()
+        val nodes = mutableSetOf<Int>()
+
+        File(TEST_INPUT_PATH).forEachLine { line ->
+            if (!line.startsWith('#')) {
+                val data = line.split(' ').map { it.toInt() }
+                nodes.add(data.first())
+                nodes.add(data.last())
+
+                if (connections.containsKey(data.first())) {
+                    connections[data.first()]!!.add(data.last())
+                } else {
+                    connections[data.first()] = mutableListOf(data.last())
+                }
+            }
+        }
+
+        return GraphModel(nodes = nodes.toSortedSet(), connections = connections)
+    }
+
+    private fun parseGraphFromAstroFile(): GraphModel {
+        val connections = mutableMapOf<Int, MutableList<Int>>()
+        val nodes = mutableSetOf<Int>()
 
         astroGraphFile.forEachLine { line ->
             if (!line.startsWith('#')) {
                 val data = line.split('\t').map { it.toInt() }
+                nodes.add(data.first())
+                nodes.add(data.last())
 
-                if (resultMap.containsKey(data.first())) {
-                    resultMap[data.first()]?.add(data.last())
+                if (connections.containsKey(data.first())) {
+                    connections[data.first()]!!.add(data.last())
                 } else {
-                    resultMap[data.first()] = mutableListOf(data.last())
-                }
-
-                if (resultMap.containsKey(data.last())) {
-                    resultMap[data.last()]?.add(data.first())
-                } else {
-                    resultMap[data.last()] = mutableListOf(data.first())
+                    connections[data.first()] = mutableListOf(data.last())
                 }
             }
         }
 
-        return resultMap
+        return GraphModel(nodes = nodes.toSortedSet(), connections = connections)
     }
 
-    private fun parseGraphFromGoogleFile(): MutableMap<Int, MutableList<Int>> {
-        val resultMap = mutableMapOf<Int, MutableList<Int>>()
+    private fun parseGraphFromGoogleFile(): GraphModel {
+        val connections = mutableMapOf<Int, MutableList<Int>>()
+        val nodes = mutableSetOf<Int>()
 
         webGoogleFile.forEachLine { line ->
             if (!line.startsWith('#')) {
                 val data = line.split('\t').map { it.toInt() }
+                nodes.add(data.first())
+                nodes.add(data.last())
 
-                if (resultMap.containsKey(data.first())) {
-                    resultMap[data.first()]?.add(data.last())
+                if (connections.containsKey(data.first())) {
+                    connections[data.first()]!!.add(data.last())
                 } else {
-                    resultMap[data.first()] = mutableListOf(data.last())
-                }
-
-                if (resultMap.containsKey(data.last())) {
-                    resultMap[data.last()]?.add(data.first())
-                } else {
-                    resultMap[data.last()] = mutableListOf(data.first())
+                    connections[data.first()] = mutableListOf(data.last())
                 }
             }
         }
 
-        return resultMap
+        return GraphModel(nodes = nodes.toSortedSet(), connections = connections)
     }
 
-    fun createGraphFromFile(fileType: FileType): GraphModel {
-        return when (fileType) {
-            FileType.ASTRO_GRAPH_FILE -> createGraphFromAstroFile()
-            FileType.VK_GRAPH_FILE -> TODO()
-            FileType.WEB_GOOGLE_FILE -> createGraphFromGoogleFile()
-        }
-    }
+    private fun parseGraphFromVkFile(): GraphModel {
+        val connections = mutableMapOf<Int, MutableList<Int>>()
+        val nodes = mutableSetOf<Int>()
 
-    private fun createGraphFromAstroFile(): GraphModel {
-        val nodes = mutableListOf<GraphModel.NodeModel>()
+        vkGraphFile.forEachLine { line ->
+            if (!line.startsWith('u')) {
+                val data = line.split(',').map { it.toInt() }.subList(0, 2)
 
-        astroGraphFile.forEachLine { line ->
-            if (!line.startsWith('#')) {
-                val data = line.split('\t').map { it.toInt() }
+                nodes.add(data.first())
+                nodes.add(data.last())
 
-                val firstNode = nodes.find { it.id == data.first() }
-                if (firstNode == null) {
-                    nodes.add(GraphModel.NodeModel(id = data.first(), connections = mutableMapOf(data.last() to 1)))
+                if (connections.containsKey(data.first())) {
+                    connections[data.first()]!!.add(data.last())
                 } else {
-                    firstNode.connections[data.last()] = 1
-                }
-
-                val secondNode = nodes.find { it.id == data.last() }
-                if (secondNode == null) {
-                    nodes.add(GraphModel.NodeModel(id = data.last(), connections = mutableMapOf(data.first() to 1)))
-                } else {
-                    secondNode.connections[data.first()] = 1
+                    connections[data.first()] = mutableListOf(data.last())
                 }
             }
         }
 
-        return GraphModel(id = FileType.ASTRO_GRAPH_FILE.hashCode(), nodes = nodes)
-    }
-
-    private fun createGraphFromGoogleFile(): GraphModel {
-        val nodes = mutableListOf<GraphModel.NodeModel>()
-
-        webGoogleFile.forEachLine { line ->
-            if (!line.startsWith('#')) {
-                val data = line.split('\t').map { it.toInt() }
-
-                val firstNode = nodes.find { it.id == data.first() }
-                if (firstNode == null) {
-                    nodes.add(GraphModel.NodeModel(id = data.first(), connections = mutableMapOf(data.last() to 1)))
-                } else {
-                    firstNode.connections[data.last()] = 1
-                }
-
-                val secondNode = nodes.find { it.id == data.last() }
-                if (secondNode == null) {
-                    nodes.add(GraphModel.NodeModel(id = data.last(), connections = mutableMapOf(data.first() to 1)))
-                } else {
-                    secondNode.connections[data.first()] = 1
-                }
-            }
-        }
-
-        return GraphModel(id = FileType.WEB_GOOGLE_FILE.hashCode(), nodes = nodes)
-    }
-
-    enum class FileType {
-        ASTRO_GRAPH_FILE, VK_GRAPH_FILE, WEB_GOOGLE_FILE
+        return GraphModel(nodes = nodes.toSortedSet(), connections = connections)
     }
 }
