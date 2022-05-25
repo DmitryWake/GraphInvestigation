@@ -1,0 +1,25 @@
+<component name="libraryTable">
+  <library name="org.jetbrains.lets-plot:lets-plot-kotlin-jvm:3.2.0" type="repository">
+    <properties maven-id="org.jetbrains.lets-plot:lets-plot-kotlin-jvm:3.2.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/lets-plot-kotlin-jvm-3.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lets-plot-common-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/kotlin-logging-2.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/kotlin-stdlib-jdk8-1.5.31.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/kotlin-stdlib-1.5.31.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/annotations-13.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/kotlin-stdlib-jdk7-1.5.31.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/base-portable-jvm-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/plot-base-portable-jvm-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/vis-svg-portable-jvm-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/plot-common-portable-jvm-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/plot-builder-portable-jvm-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/plot-config-portable-jvm-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/kotlin-stdlib-common-1.5.31.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/kotlin-logging-jvm-2.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.29.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

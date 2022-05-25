@@ -20,14 +20,13 @@ class FileOutputConverter {
             FileType.ASTRO_GRAPH_FILE -> astroGraphFile
             FileType.VK_GRAPH_FILE -> vkGraphFile
             FileType.WEB_GOOGLE_FILE -> webGoogleFile
-            FileType.TEST_FILE -> File(TEST_OUTPUT_PATH)
         }
 
         println(currentFile.canWrite())
         val dataList = mutableListOf<String>()
 
-        graph.connections.keys.forEach { key ->
-            graph.connections[key]!!.forEach { value ->
+        graph.edges.keys.forEach { key ->
+            graph.edges[key]!!.forEach { value ->
                 val dataString = "$key $value"
                 dataList.add(dataString)
             }
