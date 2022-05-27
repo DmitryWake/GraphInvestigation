@@ -8,8 +8,8 @@ import test.utilit.GraphDistanceHelper
 fun main() {
     val graph =
         FileInputConverter().parseGraphFromAnyFile(
-            "C:\\Users\\nikol\\IdeaProjects\\TestGraphs\\DataSets\\compGoogle.txt",
-            ' '
+            "C:\\Users\\nikol\\IdeaProjects\\TestGraphs\\DataSets\\CA-GrQc.txt",
+            '\t'
         )
     val jGraph = DefaultUndirectedWeightedGraph<Int, DefaultWeightedEdge>(DefaultWeightedEdge::class.java)
     graph.vertexes.forEach {

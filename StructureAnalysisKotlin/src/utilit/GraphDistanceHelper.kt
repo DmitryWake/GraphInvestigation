@@ -83,8 +83,10 @@ class GraphDistanceHelper(graph: GraphModel) {
         while (iterator.hasNext()) {
             val v1 = iterator.next()
             val v2 = iterator.next()
-
-            distanceMap[v1] = v2 to helper.getPathWeight(v1, v2).toInt()
+            val distance = helper.getPathWeight(v1, v2).toInt().let {
+                if (it == Int.MAX_VALUE) 0 else it
+            }
+            distanceMap[v1] = v2 to distance
             println("Вычислили расстояние ${distanceMap[v1]}")
         }
     }

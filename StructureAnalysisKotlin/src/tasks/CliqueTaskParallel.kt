@@ -7,9 +7,12 @@ import kotlinx.coroutines.awaitAll
 import test.converter.FileType
 
 suspend fun main() {
-    val inputConverter = FileInputConverter()
     println("Считываем граф")
-    val graph = inputConverter.parseGraphFromFile(FileType.ASTRO_GRAPH_FILE)
+    val graph =
+        FileInputConverter().parseGraphFromAnyFile(
+            "C:\\Users\\nikol\\IdeaProjects\\TestGraphs\\DataSets\\soc-wiki-Vote.mtx",
+            ' '
+        )
 
     val nodes = graph.vertexes.toList()
 
