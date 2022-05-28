@@ -5,6 +5,7 @@
 #include <string>
 #include <omp.h>
 #include <math.h>
+#include <iostream>
 
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/connected_components.hpp>
