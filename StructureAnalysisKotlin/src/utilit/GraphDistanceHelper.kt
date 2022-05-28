@@ -3,7 +3,7 @@ package test.utilit
 import org.jgrapht.alg.shortestpath.DeltaSteppingShortestPath
 import org.jgrapht.graph.DefaultUndirectedWeightedGraph
 import org.jgrapht.graph.DefaultWeightedEdge
-import test.model.GraphModel
+import model.GraphModel
 import java.util.*
 import kotlin.math.roundToInt
 

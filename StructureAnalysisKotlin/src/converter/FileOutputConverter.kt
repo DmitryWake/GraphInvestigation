@@ -1,7 +1,7 @@
 package test.converter
 
 import converter.*
-import test.model.GraphModel
+import model.GraphModel
 import java.io.File
 
 class FileOutputConverter {

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="StructureAnalysisKotlin" target="16" />
       <module name="StructureAnalysisKotlin.test" target="16" />
     </bytecodeTargetLevel>
   </component>

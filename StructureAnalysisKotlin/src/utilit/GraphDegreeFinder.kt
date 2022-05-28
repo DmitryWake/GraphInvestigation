@@ -1,6 +1,6 @@
 package test.utilit
 
-import test.model.GraphModel
+import model.GraphModel
 import java.util.*
 
 class GraphDegreeFinder(private val graphModel: GraphModel) {

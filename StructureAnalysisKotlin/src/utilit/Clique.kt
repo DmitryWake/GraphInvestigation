@@ -1,6 +1,6 @@
 package test.utilit
 
-import test.model.GraphModel
+import model.GraphModel
 import kotlin.collections.ArrayDeque
 
 class Clique(private val graph: GraphModel) {
