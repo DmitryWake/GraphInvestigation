@@ -1,6 +1,6 @@
 const Deque = require("collections/deque");
 
-exports.bfs = function (graph, start, end, reset = true) {
+exports.bfs = function (graph, start, end, reset = true) { // Поиск пути между 2-мя вершинами. Возвращает дистанцию, путь и время работы.
     const startAlgorithm = Date.now();
 
     if (!graph.hasOwnProperty(start) || !graph.hasOwnProperty(end)) {

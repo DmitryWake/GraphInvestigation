@@ -1,7 +1,6 @@
 const distance = require("./distance.js");
-const Deque = require("collections/deque");
 
-exports.randomLandmarks = function (graph, numLand, U = []) { // Метод выбирающий ориентиры случайно
+exports.randomLandmarks = function (graph, numLand, U = []) { // Метод выбирающий ориентиры случайным образом
     while (U.length < numLand) {
         let u = Object.keys(graph)[Math.floor(Math.random() * Object.keys(graph).length)];
 
@@ -13,7 +12,7 @@ exports.randomLandmarks = function (graph, numLand, U = []) { // Метод вы
     return U;
 }
 
-exports.highestDegree = function (graph, numLand) { 
+exports.highestDegree = function (graph, numLand) { // Метод выбирающий ориентиры с наибольшей степенью
     const degrees = [];
     const U = [];
 
@@ -30,7 +29,7 @@ exports.highestDegree = function (graph, numLand) {
     return U;
 }
 
-exports.bestCoverage = function (graph, numLand, M) {
+exports.bestCoverage = function (graph, numLand, M) { // Метод выбирающий ориентиры способом наилучшего покрытия
     let P = [];
 
     for (let i = 0; i < M; i++) {
@@ -93,112 +92,107 @@ exports.bestCoverage = function (graph, numLand, M) {
     return U;
 }
 
-exports.bfsVisitedVertices = function (graph, start, reset = true) {
-    const p = {};
-    p[start] = -1;
-    graph[start].marked = true;
-    const visitedVertices = [];
+// exports.bfsVisitedVertices = function (graph, start, reset = true) {
+//     const p = {};
+//     p[start] = -1;
+//     graph[start].marked = true;
+//     const visitedVertices = [];
 
-    let q = new Deque([start]);
+//     let q = new Deque([start]);
 
-    while (q.length) {
-        let v = q.pop();
+//     while (q.length) {
+//         let v = q.pop();
 
-        for (let i of graph[v].linked) {
-            if (!graph[i].marked) {
-                p[i] = v;
-                graph[i].marked = true;
-                visitedVertices.push([i, []]);
-                q.unshift(i);
-            }
-        }
-    }
+//         for (let i of graph[v].linked) {
+//             if (!graph[i].marked) {
+//                 p[i] = v;
+//                 graph[i].marked = true;
+//                 visitedVertices.push([i, []]);
+//                 q.unshift(i);
+//             }
+//         }
+//     }
 
-    if (reset) {
-        for (let v in graph) {
-            graph[v].marked = false;
-        }
-    }
+//     if (reset) {
+//         for (let v in graph) {
+//             graph[v].marked = false;
+//         }
+//     }
 
-    for (let i of visitedVertices) {
-        let c = i[0];
+//     for (let i of visitedVertices) {
+//         let c = i[0];
 
-        while (c !== -1) {
-            i[1].push(String(c));
-            c = p[c];
-        }
-        i[1].reverse();
-    }
+//         while (c !== -1) {
+//             i[1].push(String(c));
+//             c = p[c];
+//         }
+//         i[1].reverse();
+//     }
 
-    return visitedVertices;
-}
+//     return visitedVertices;
+// }
 
 
-exports.bestCoverageOptimize = function (graph, numLand, M) {
-    let P = [];
+// exports.bestCoverageOptimize = function (graph, numLand, M) {
+//     let P = [];
 
-    for (let i = 0; i < M; i++) {
-        // console.log('Cтарт поиска пути опт');
-        // let start = Date.now();
+//     for (let i = 0; i < M; i++) {
+//         let s = Object.keys(graph)[Math.floor(Math.random() * Object.keys(graph).length)];
 
-        let s = Object.keys(graph)[Math.floor(Math.random() * Object.keys(graph).length)];
+//         let visitedVerticesFromS = exports.bfsVisitedVertices(graph, s);
 
-        let visitedVerticesFromS = exports.bfsVisitedVertices(graph, s);
+//         // Можем взять путь до рандомной вершины
+//         // let path = visitedVerticesFromS[Math.floor(Math.random() * visitedVerticesFromS.length)][1];
 
-        // Можем взять путь до рандомной вершины
-        // let path = visitedVerticesFromS[Math.floor(Math.random() * visitedVerticesFromS.length)][1];
+//         // Берем путь рандомной вершины, до которой путь самый длинный
+//         let maxLength = visitedVerticesFromS[visitedVerticesFromS.length - 1][1].length;
+//         visitedVerticesFromS = visitedVerticesFromS.filter(item => item[1].length === maxLength);
+//         let path = visitedVerticesFromS[Math.floor(Math.random() * visitedVerticesFromS.length)][1];
 
-        // Берем путь рандомной вершины, до которой путь самый длинный
-        let maxLength = visitedVerticesFromS[visitedVerticesFromS.length - 1][1].length;
-        visitedVerticesFromS = visitedVerticesFromS.filter(item => item[1].length === maxLength);
-        let path = visitedVerticesFromS[Math.floor(Math.random() * visitedVerticesFromS.length)][1];
+//         P.push(path);
+//     }
 
-        P.push(path);
+//     let Vp = new Set();
 
-        // console.log(`Путь ${i} был найден за ${Date.now() - start}`);
-    }
+//     for (let i = 0; i < P.length; i++) {
+//         for (let j = 0; j < P[i].length; j++) {
+//             Vp.add(+P[i][j]);
+//         }
+//     }
 
-    let Vp = new Set();
+//     const U = [];
 
-    for (let i = 0; i < P.length; i++) {
-        for (let j = 0; j < P[i].length; j++) {
-            Vp.add(+P[i][j]);
-        }
-    }
+//     for (let k = 0; k < numLand; k++) {
+//         if (!P.length) {
+//             exports.randomLandmarks(graph, numLand, U);
+//             break;
+//         }
 
-    const U = [];
+//         let c = {};
 
-    for (let k = 0; k < numLand; k++) {
-        if (!P.length) {
-            exports.randomLandmarks(graph, numLand, U);
-            break;
-        }
+//         for (let v of Vp) {
+//             c[v] = 0;
+//         }
 
-        let c = {};
+//         for (let i = 0; i < P.length; i++) {
+//             for (let j = 0; j < P[i].length; j++) {
+//                 c[P[i][j]]++;
+//             }
+//         }
 
-        for (let v of Vp) {
-            c[v] = 0;
-        }
+//         let max = 0, argmax = 0;
+//         for (let v in c) {
+//             if (c[v] > max) {
+//                 argmax = v;
+//                 max = c[v];
+//             }
+//         }
 
-        for (let i = 0; i < P.length; i++) {
-            for (let j = 0; j < P[i].length; j++) {
-                c[P[i][j]]++;
-            }
-        }
+//         U.push(argmax);
+//         Vp.delete(+argmax);
 
-        let max = 0, argmax = 0;
-        for (let v in c) {
-            if (c[v] > max) {
-                argmax = v;
-                max = c[v];
-            }
-        }
+//         P = P.filter(path => !path.includes(argmax));
+//     }
 
-        U.push(argmax);
-        Vp.delete(+argmax);
-
-        P = P.filter(path => !path.includes(argmax));
-    }
-
-    return U;
-}
+//     return U;
+// }

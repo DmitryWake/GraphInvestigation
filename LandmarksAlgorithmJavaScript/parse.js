@@ -1,8 +1,10 @@
 const fs = require("fs");
 
-exports.parseFromTxt = function (filename, oriented = true, separator = '\t') {
+exports.parseFromTxt = function (filename, oriented = true, separator = /[ ,\t]/) {
     let data = fs.readFileSync(filename, 'utf-8');
     data = data.split('\n');
+
+    data = data.filter(u => u != "");
 
     let graph = {};
 

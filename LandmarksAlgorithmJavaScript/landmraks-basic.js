@@ -1,7 +1,9 @@
 const Deque = require("collections/deque");
 const selectLandmarks = require("./select-landmarks.js");
+const jsonfile = require('jsonfile');
 
-exports.distances = function (graph, start) { //BFS
+//Запускаем BFS из вершины, записываем расстояние каждой достигшей вершине от исходной.
+exports.distances = function (graph, start) {
     let q = new Deque([start]);
 
     graph[start].distances[start] = 0;
@@ -25,7 +27,10 @@ exports.distances = function (graph, start) { //BFS
     }
 }
 
-exports.precompute = function (graph, U = [], method = "random", numLandmarks = 20, M = 500) {
+// Поиск ориентиров и расстояния до них от каждой вершины. Записывает файл с последними найдеными ориентирами и временем работы. 
+// Возвращает ориентиры.
+exports.precompute = function (graph, U = [], method = "random", numLandmarks = 20, M = 500) { 
+    let time = Date.now();
 
     if (!U.length) {
         if (method == "random") {
@@ -43,19 +48,38 @@ exports.precompute = function (graph, U = [], method = "random", numLandmarks = 
         exports.distances(graph, u);
     }
 
+    jsonfile.writeFileSync(`../JSON/landmarks-${Date.now()}.json`, {
+        landmarks: U,
+        workingTime: Date.now() - time,
+        numberOfLandmarks: numLandmarks,
+        method
+    }, { spaces: 2, EOL: '\r\n' });
+
     return U;
 }
 
-exports.landmarksBasic = function (graph, s, t, U = [], numLandmarks = 20, method = "random") {
+//Алгоритм landmark-basic. Можно передать уже готовый список ориентиров, тогда они считаться заново не будут.
+//Возвращает оценку расстояния и время работы(во время работы поиск ориентиров не включено).
+exports.landmarksBasic = function (graph, s, t, numLandmarks = 20, method = "random", U = [], M = 500) {
     if (!graph.hasOwnProperty(s) || !graph.hasOwnProperty(t)) {
-        return -1;
+        return {
+            distance: -1,
+            workingTime: 0
+        };
     } 
 
-    if (s == t) return 0;
-    
+    if (s == t) {
+        return {
+            distance: 0,
+            workingTime: 0
+        };
+    }   
+
     if (!U.length) {
-        U = exports.precompute(graph, U, method, numLandmarks);
+        U = exports.precompute(graph, U, method, numLandmarks, M);
     }
+
+    let time = Date.now();
 
     let d = Infinity;
 
@@ -65,15 +89,27 @@ exports.landmarksBasic = function (graph, s, t, U = [], numLandmarks = 20, metho
                 d = graph[s].distances[u] + graph[t].distances[u];
             }
         } else if (graph[s].distances[u] == 0 && graph[t].distances[u]) {
-            return graph[t].distances[u];
+            return {
+                distance: graph[t].distances[u],
+                workingTime: Date.now() - time
+            };
         } else if (graph[s].distances[u] && graph[t].distances[u] == 0){
-            return graph[s].distances[u];
+            return {
+                distance: graph[s].distances[u],
+                workingTime: Date.now() - time
+            };
         }
     }
 
     if (d == Infinity) {
-        return -1;
+        return {
+            distance: -1,
+            workingTime: Date.now() - time
+        };
     }
 
-    return d;
+    return {
+        distance: d,
+        workingTime: Date.now() - time
+    };
 }

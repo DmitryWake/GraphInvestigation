@@ -2,6 +2,7 @@ const Deque = require("collections/deque");
 const selectLandmarks = require("./select-landmarks.js");
 const landmarksBasic = require("./landmraks-basic.js");
 
+// Декартово произведение.
 function cartesianProduct(...arrays) {
 	function _inner(...args) {
 		if (arguments.length > 1) {
@@ -18,6 +19,7 @@ function cartesianProduct(...arrays) {
 	return _inner(...arrays, [[]]);
 };
 
+// Находит пересечение ребер графа и переданных ребер.
 function intersectionEdgesWithE(graph, edges) {
     let result = [];
 
@@ -30,26 +32,7 @@ function intersectionEdgesWithE(graph, edges) {
     return result;
 }
 
-// function precompute(graph, method, numLandmarks = 1, M = 1) {
-//     let U = [];
-
-//     if (method == "random") {
-//         U = selectLandmarks.randomLandmarks(graph, numLandmarks);
-//     } else if (method == "highest-degree") {
-//         U = selectLandmarks.highestDegree(graph, numLandmarks);
-//     } else if (method == "best-coverage") {
-//         U = selectLandmarks.bestCoverage(graph, numLandmarks, M);
-//     } else {
-//         return "Укажите допустимый метод выбора ориентиров";
-//     }
-
-//     for (let u of U) {
-//         landmarksBasic.distances(graph, u);
-//     }
-
-//     return U;
-// }
-
+// Ищет кратчайщий путь от вершины до другого пути.
 exports.pathTo = function (graph, s, pi, reset = true) {
     if (!graph.hasOwnProperty(s) || !pi.length) {
         return [];
@@ -65,7 +48,7 @@ exports.pathTo = function (graph, s, pi, reset = true) {
     const path = [];
 
     let q = new Deque([s]);
-    let t; // Ближайщая точка к s, принадлежащая пути
+    let t; // Ближайщая точка к s, принадлежащая пути.
 
     while (q.length) {
         let v = q.pop();
@@ -129,18 +112,28 @@ exports.distanceSC = function (graph, u, s, t) {
     return best;
 }
 
-exports.landmarksSC = function (graph, s, t, U = [], numLandmarks = 20, method = "random") {
+//Алгоритм landmark-SC. Можно передать уже готовый список ориентиров, тогда они считаться заново не будут.
+//Возвращает оценку расстояния и время работы(во время работы поиск ориентиров не включено).
+exports.landmarksSC = function (graph, s, t, numLandmarks = 20, method = "random", U = [], M = 500) {
     if (!graph.hasOwnProperty(s) || !graph.hasOwnProperty(t)) {
         return {
             distance: -1,
+            workingTime: 0
         };
     } 
 
-    if (s == t) return 0;
+    if (s == t) {
+        return {
+            distance: 0, 
+            workingTime: 0
+        };
+    }  
 
     if (!U.length) {
-        U = landmarksBasic.precompute(graph, U, method, numLandmarks);
+        U = landmarksBasic.precompute(graph, U, method, numLandmarks, M);
     }
+
+    let time = Date.now();
 
     let d = Infinity;
     let nearestU;
@@ -152,17 +145,27 @@ exports.landmarksSC = function (graph, s, t, U = [], numLandmarks = 20, method =
                 nearestU = u;
             }
         } else if (graph[s].distances[u] == 0 && graph[t].distances[u]) {
-            return graph[t].distances[u];
+            return {
+                distance: graph[t].distances[u],
+                workingTime: Date.now() - time
+            };
         } else if (graph[s].distances[u] && graph[t].distances[u] == 0){
-            return graph[s].distances[u];
+            return {
+                distance: graph[s].distances[u],
+                workingTime: Date.now() - time
+            };
         }
     }
 
     if (d != Infinity) {
-        d = exports.distanceSC(graph, nearestU, s, t);
+        return {
+            distance: exports.distanceSC(graph, nearestU, s, t),
+            workingTime: Date.now() - time
+        };
     } else {
-        return -1;
+        return {
+            distance: -1,
+            workingTime: Date.now() - time
+        };
     }
-
-    return d;
 }
