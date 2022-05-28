@@ -1,0 +1,61 @@
+<component name="libraryTable">
+  <library name="annotations-13.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/annotations-13.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/base-portable-jvm-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-anim-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-awt-util-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-bridge-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-codec-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-constants-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-css-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-dom-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-ext-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-gvt-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-i18n-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-parser-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-script-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-svg-dom-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-svggen-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-transcoder-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-util-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/batik-xml-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/common-image-3.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/common-io-3.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/common-lang-3.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/commons-io-1.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/commons-logging-1.0.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/imageio-core-3.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/imageio-metadata-3.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/imageio-tiff-3.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/jgrapht-core-1.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/jgrapht-ext-1.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/jgraphx.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/jheaps-0.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/kotlin-logging-jvm-2.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/kotlin-stdlib-1.5.31.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/kotlin-stdlib-1.6.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/kotlin-stdlib-jdk7-1.5.31.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/kotlin-stdlib-jdk7-1.6.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/kotlin-stdlib-jdk8-1.5.31.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/kotlin-stdlib-jdk8-1.6.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/kotlinx-coroutines-core-jvm-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/lets-plot-common-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/lets-plot-image-export-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/lets-plot-kotlin-jvm-3.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/plot-base-portable-jvm-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/plot-builder-portable-jvm-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/plot-common-portable-jvm-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/plot-config-portable-jvm-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/serializer-2.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/slf4j-api-1.7.29.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/vis-svg-portable-jvm-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/xalan-2.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/xml-apis-1.4.01.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/xml-apis-ext-1.3.04.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StructureAnalysisKotlin/lib/xmlgraphics-commons-2.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

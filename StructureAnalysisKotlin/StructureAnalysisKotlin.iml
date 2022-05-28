@@ -15,5 +15,6 @@
     <orderEntry type="library" name="org.jetbrains.lets-plot:lets-plot-image-export:2.3.0" level="project" />
     <orderEntry type="library" exported="" name="jgraphx" level="project" />
     <orderEntry type="library" name="jgrapht-ext-1.5.1" level="project" />
+    <orderEntry type="library" name="annotations-13.0" level="project" />
   </component>
 </module>
