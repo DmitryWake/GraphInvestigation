@@ -48,12 +48,12 @@ void Graph::clusterCoef(std::string filePath)
 {
 	for (auto n : nodes)
 	{
-		double k = 0;
-		for (auto e : n->connections)
-			k += e.second;
+		double k = n->connections.size();
+		/*for (auto e : n->connections)
+			k += e.second;*/
 
 		if (k >= 2)
-			n->CL = 2. * n->e / k / (k - 1);
+			n->CL = 2. * n->e / (k * (k - 1));
 		else
 			n->CL = 0;
 	}
@@ -94,7 +94,7 @@ void Graph::addConnection(int a, int b)
 	if (!oriented && f != s)
 		s->addConnection(f);
 		
-	//boost::add_edge(f->id, s->id, g);
+	boost::add_edge(f->id, s->id, g);
 	++countEdge;
 }
 
@@ -194,31 +194,62 @@ long long Graph::findClique()
 		return -1;
 	long long res = 0;
 
+	//for (int i = 0; i < nodes.size(); i++)
+	//{
+	//	Node* n1 = nodes[i];
+	//	if (n1->connections.size() < 2)
+	//		continue;
+	//	int prev = (*n1->connections.begin()).first->id;
+	//	for (auto n2 : n1->connections)
+	//	{
+	//		if (n2.first->id < prev)
+	//			std::cout << "!!!!!!!!!!!!!!!!!!!\n";
+	//		prev = n2.first->id;
+
+
+	//		if (n2.first->connections.size() < 2 || n1->id > n2.first->id)
+	//			continue;
+	//		for (auto n3 : n2.first->connections)
+	//		{
+	//			if (n3.first == n1 || n3.first->id > n2.first->id || n3.first->id > n1->id)
+	//				continue;
+
+	//			if (n3.first->connections.count(n1))
+	//			{
+	//				++n1->e;
+	//				++n2.first->e;
+	//				++n3.first->e;
+	//				++res;
+	//			}
+	//		}
+	//	}
+	//}
+
 //#pragma omp parallel for reduction(+:res) num_threads(8)
 	for (int i = 0; i < nodes.size(); i++)
 	{
 		Node* n1 = nodes[i];
 		if (n1->connections.size() < 2)
 			continue;
-		for (auto n2 : n1->connections)
+		for (auto it2 = n1->connections.upper_bound(n1); it2 != n1->connections.end(); ++it2)
 		{
-			if (n2.first->connections.size() < 2 || n1->id > n2.first->id)
+
+			Node* n2 = (*it2).first;
+			if (n2->connections.size() < 2)
 				continue;
-			for (auto n3 : n2.first->connections)
+
+			auto it3 = it2; ++it3;
+			for (; it3 != n1->connections.end(); ++it3)
 			{
-				if (n3.first == n1 || n3.first->id > n2.first->id || n3.first->id > n1->id)
-					continue;
+				Node* n3 = (*it3).first;
 
-				for (auto n4 : n3.first->connections)
-					if (n4.first == n1)
-					{
-						++n1->e;
-						++n2.first->e;
-						++n3.first->e;
-
-						++res;
-						break;
-					}
+				if (n3->connections.count(n2))
+				{
+					++n1->e;
+					++n2->e;
+					++n3->e;
+					++res;
+				}
 			}
 		}
 	}
@@ -231,6 +262,7 @@ int Graph::boostGetcountComp()
 	comp.resize(boost::num_vertices(g));
 
 	return boost::strong_components(g, &comp[0]);
+	//return boost::connected_components(g, &comp[0]);
 }
 
 void Graph::metaGraph(std::string filePath)

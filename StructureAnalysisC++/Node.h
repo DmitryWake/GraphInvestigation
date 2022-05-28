@@ -3,10 +3,13 @@
 #include <vector>
 #include <map>
 
+
+
 class Node
 {
-
 public:
+
+	struct compare {bool operator() (Node* a, Node* b) const{ return a->id < b->id; } };
 
 	Node(int id,int name);
 	Node(int id, int pre, int post, int component);
@@ -19,7 +22,7 @@ public:
 	int e = 0;
 	double CL = 0;
 
-	std::map<Node*, int> connections;
+	std::map < Node*, int, compare> connections;
 
 	void addConnection(Node* a);
 
